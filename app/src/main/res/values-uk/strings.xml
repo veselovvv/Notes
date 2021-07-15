@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Нотатки</string>
+    <string name="note_title">Назва нотатки</string>
+    <string name="note_title_hint">Введіть назву нотатки.</string>
+    <string name="note_title_label">Назва</string>
+    <string name="note_text">Текст нотатки</string>
+    <string name="note_text_hint">Введіть текст нотатки.</string>
+    <string name="note_text_label">Текст</string>
+    <string name="note_date">Дата нотатки</string>
+    <string name="new_note">Нова нотатка</string>
+</resources>
