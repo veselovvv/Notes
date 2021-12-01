@@ -1,5 +1,5 @@
 # Notes
-📒 Android App with using Kotlin, MVC, ViewModel and LiveData, Room with SQLite and SQL. In this app you can create your notes, set title and text, choose date and edit your notes. In addition, this app has a dark theme.
+📒 Android App with using Kotlin, MVC, ViewModel and LiveData, Room with SQLite, SQL and Material Design Components. In this app you can create your notes, set title and text, choose date and edit your notes. In addition, this app has a dark theme.
 
 ![1](https://user-images.githubusercontent.com/76612421/125834603-6745a97a-9940-41f8-bf75-e900cd4b38cc.PNG)
 ![2](https://user-images.githubusercontent.com/76612421/125834581-0c905e66-b86d-4a27-9644-401964d8fb62.PNG)
