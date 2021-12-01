@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
 private const val ARG_NOTE_ID = "note_id"
@@ -21,9 +21,9 @@ private const val DATE_FORMAT = "EEE, MMM, dd"
 class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
     private lateinit var note: Note
-    private lateinit var titleField: EditText
-    private lateinit var textField: EditText
-    private lateinit var dateButton: Button
+    private lateinit var titleField: TextInputEditText
+    private lateinit var textField: TextInputEditText
+    private lateinit var dateButton: MaterialButton
 
     private val noteDetailViewModel: NoteDetailViewModel by lazy {
         ViewModelProviders.of(this).get(NoteDetailViewModel::class.java)
@@ -44,9 +44,9 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note, container, false)
 
-        titleField = view.findViewById(R.id.note_title) as EditText
-        textField = view.findViewById(R.id.note_text) as EditText
-        dateButton = view.findViewById(R.id.note_date) as Button
+        titleField = view.findViewById(R.id.note_title) as TextInputEditText
+        textField = view.findViewById(R.id.note_text) as TextInputEditText
+        dateButton = view.findViewById(R.id.note_date) as MaterialButton
 
         return view
     }

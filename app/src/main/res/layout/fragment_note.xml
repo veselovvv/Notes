@@ -7,31 +7,31 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/note_title_label"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/note_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/note_title_hint"/>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/note_text_label"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/note_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/note_text_hint"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/note_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

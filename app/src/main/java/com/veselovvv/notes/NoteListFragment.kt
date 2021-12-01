@@ -3,12 +3,12 @@ package com.veselovvv.notes
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textview.MaterialTextView
 import java.util.*
 
 class NoteListFragment : Fragment() {
@@ -102,9 +102,9 @@ class NoteListFragment : Fragment() {
 
         private lateinit var note: Note
 
-        private val titleTextView: TextView = itemView.findViewById(R.id.note_title)
-        private val textTextView: TextView = itemView.findViewById(R.id.note_text)
-        private val dateTextView: TextView = itemView.findViewById(R.id.note_date)
+        private val titleTextView: MaterialTextView = itemView.findViewById(R.id.note_title)
+        private val textTextView: MaterialTextView = itemView.findViewById(R.id.note_text)
+        private val dateTextView: MaterialTextView = itemView.findViewById(R.id.note_date)
 
         init {
             itemView.setOnClickListener(this)
