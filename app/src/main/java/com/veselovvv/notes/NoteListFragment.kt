@@ -58,11 +58,7 @@ class NoteListFragment : Fragment() {
         // Регистрация наблюдателя за экземпляром LiveData и связывание наблюдателя с фрагментом:
         noteListViewModel.noteListLiveData.observe(
             viewLifecycleOwner,
-            Observer { notes ->
-                notes?.let {
-                    updateUI(notes)
-                }
-            }
+            Observer { notes -> notes?.let { updateUI(notes) } }
         )
     }
 

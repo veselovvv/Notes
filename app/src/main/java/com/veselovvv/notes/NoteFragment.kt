@@ -33,6 +33,7 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
         super.onCreate(savedInstanceState)
 
         note = Note()
+
         val noteId: UUID = arguments?.getSerializable(ARG_NOTE_ID) as UUID
         noteDetailViewModel.loadNote(noteId)
     }
@@ -62,10 +63,10 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
             Observer { note ->
                 note?.let {
                     this.note = note
-
                     updateUI()
                 }
-            })
+            }
+        )
     }
 
     override fun onStart() {
@@ -73,32 +74,24 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
         val titleWatcher = object : TextWatcher {
 
-            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 note.title = sequence.toString()
             }
 
-            override fun afterTextChanged(sequence: Editable?) {
-
-            }
+            override fun afterTextChanged(sequence: Editable?) {}
         }
 
         val textWatcher = object : TextWatcher {
 
-            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 note.text = sequence.toString()
             }
 
-            override fun afterTextChanged(sequence: Editable?) {
-
-            }
+            override fun afterTextChanged(sequence: Editable?) {}
         }
 
         titleField.addTextChangedListener(titleWatcher)
@@ -131,14 +124,9 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
     companion object {
         // Создает пакет аргументов и экземпляр фрагмента, присоединяет аргументы к фрагменту:
         fun newInstance(noteId: UUID): NoteFragment {
+            val args = Bundle().apply { putSerializable(ARG_NOTE_ID, noteId) }
 
-            val args = Bundle().apply {
-                putSerializable(ARG_NOTE_ID, noteId)
-            }
-
-            return NoteFragment().apply {
-                arguments = args
-            }
+            return NoteFragment().apply { arguments = args }
         }
     }
 }
