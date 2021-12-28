@@ -13,9 +13,7 @@ class NoteTypeConverters {
 
     @TypeConverter
     fun toDate(millisSinceEpoch: Long?): Date? {
-        return millisSinceEpoch?.let {
-            Date(it)
-        }
+        return millisSinceEpoch?.let { Date(it) }
     }
 
     @TypeConverter

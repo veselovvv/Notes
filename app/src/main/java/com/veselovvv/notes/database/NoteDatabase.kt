@@ -6,8 +6,8 @@ import androidx.room.TypeConverters
 import com.veselovvv.notes.Note
 
 // База данных (использование Room):
-@Database(entities = [ Note::class ], version = 1) // указываем сущность и версию БД
-@TypeConverters(NoteTypeConverters::class) // указываем класс с функциями для преобразования типов
+@Database(entities = [ Note::class ], version = 1) // сущность и версия БД
+@TypeConverters(NoteTypeConverters::class) // класс с функциями для преобразования типов
 abstract class NoteDatabase : RoomDatabase() {
 
     // Подключение DAO:
