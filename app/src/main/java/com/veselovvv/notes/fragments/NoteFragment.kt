@@ -1,4 +1,4 @@
-package com.veselovvv.notes
+package com.veselovvv.notes.fragments
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.veselovvv.notes.models.Note
+import com.veselovvv.notes.viewmodels.NoteDetailViewModel
+import com.veselovvv.notes.R
 import java.util.*
 
 private const val ARG_NOTE_ID = "note_id"

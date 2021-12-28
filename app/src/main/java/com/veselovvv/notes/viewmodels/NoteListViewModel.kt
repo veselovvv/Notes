@@ -1,6 +1,8 @@
-package com.veselovvv.notes
+package com.veselovvv.notes.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.veselovvv.notes.models.Note
+import com.veselovvv.notes.repositories.NoteRepository
 
 class NoteListViewModel : ViewModel() {
 

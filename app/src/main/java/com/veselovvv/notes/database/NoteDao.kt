@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.veselovvv.notes.Note
+import com.veselovvv.notes.models.Note
 import java.util.*
 
 // Объект доступа к данным:

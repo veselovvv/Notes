@@ -1,4 +1,4 @@
-package com.veselovvv.notes
+package com.veselovvv.notes.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

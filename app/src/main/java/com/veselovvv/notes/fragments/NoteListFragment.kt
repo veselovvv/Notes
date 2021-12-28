@@ -1,4 +1,4 @@
-package com.veselovvv.notes
+package com.veselovvv.notes.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
+import com.veselovvv.notes.models.Note
+import com.veselovvv.notes.viewmodels.NoteListViewModel
+import com.veselovvv.notes.R
 import java.util.*
 
 class NoteListFragment : Fragment() {

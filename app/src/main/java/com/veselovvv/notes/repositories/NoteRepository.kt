@@ -1,9 +1,10 @@
-package com.veselovvv.notes
+package com.veselovvv.notes.repositories
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.veselovvv.notes.database.NoteDatabase
+import com.veselovvv.notes.models.Note
 import java.util.*
 import java.util.concurrent.Executors
 

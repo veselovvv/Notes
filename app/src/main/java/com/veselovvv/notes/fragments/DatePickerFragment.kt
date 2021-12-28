@@ -1,4 +1,4 @@
-package com.veselovvv.notes
+package com.veselovvv.notes.fragments
 
 import android.app.DatePickerDialog
 import android.app.Dialog

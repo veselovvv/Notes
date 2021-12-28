@@ -1,7 +1,10 @@
-package com.veselovvv.notes
+package com.veselovvv.notes.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.veselovvv.notes.R
+import com.veselovvv.notes.fragments.NoteFragment
+import com.veselovvv.notes.fragments.NoteListFragment
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NoteListFragment.Callbacks {
