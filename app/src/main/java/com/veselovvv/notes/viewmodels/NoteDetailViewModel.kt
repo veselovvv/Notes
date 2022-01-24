@@ -10,7 +10,6 @@ import java.util.*
 
 // Управляет запросом к БД:
 class NoteDetailViewModel : ViewModel() {
-
     private val noteRepository = NoteRepository.get()
     private val noteIdLiveData = MutableLiveData<UUID>()
 
@@ -24,7 +23,5 @@ class NoteDetailViewModel : ViewModel() {
         noteIdLiveData.value = noteId
     }
 
-    fun saveNote(note: Note) {
-        noteRepository.updateNote(note)
-    }
+    fun saveNote(note: Note) = noteRepository.updateNote(note)
 }

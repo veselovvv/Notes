@@ -19,10 +19,8 @@ import java.util.*
 private const val ARG_NOTE_ID = "note_id"
 private const val DIALOG_DATE = "DialogDate"
 private const val REQUEST_DATE = 0
-private const val DATE_FORMAT = "EEE, MMM, dd"
 
 class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
-
     private lateinit var note: Note
     private lateinit var titleField: TextInputEditText
     private lateinit var textField: TextInputEditText
@@ -34,17 +32,17 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         note = Note()
+        loadNoteById()
+    }
 
+    private fun loadNoteById() {
         val noteId: UUID = arguments?.getSerializable(ARG_NOTE_ID) as UUID
         noteDetailViewModel.loadNote(noteId)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note, container, false)
 
@@ -57,19 +55,14 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadNoteById()
 
-        val noteId = arguments?.getSerializable(ARG_NOTE_ID) as UUID
-        noteDetailViewModel.loadNote(noteId)
-
-        noteDetailViewModel.noteLiveData.observe(
-            viewLifecycleOwner,
-            Observer { note ->
-                note?.let {
-                    this.note = note
-                    updateUI()
-                }
+        noteDetailViewModel.noteLiveData.observe(viewLifecycleOwner, Observer { note ->
+            note?.let {
+                this.note = note
+                updateUI()
             }
-        )
+        })
     }
 
     override fun onStart() {
@@ -77,9 +70,20 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
         val titleWatcher = object : TextWatcher {
 
-            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(
+                sequence: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
 
-            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(
+                sequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
                 note.title = sequence.toString()
             }
 
@@ -88,9 +92,20 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
         val textWatcher = object : TextWatcher {
 
-            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(
+                sequence: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
 
-            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(
+                sequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
                 note.text = sequence.toString()
             }
 
@@ -126,10 +141,10 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
     companion object {
         // Создает пакет аргументов и экземпляр фрагмента, присоединяет аргументы к фрагменту:
-        fun newInstance(noteId: UUID): NoteFragment {
-            val args = Bundle().apply { putSerializable(ARG_NOTE_ID, noteId) }
-
-            return NoteFragment().apply { arguments = args }
+        fun newInstance(noteId: UUID) = NoteFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable(ARG_NOTE_ID, noteId)
+            }
         }
     }
 }

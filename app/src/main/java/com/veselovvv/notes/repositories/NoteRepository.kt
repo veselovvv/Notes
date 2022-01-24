@@ -14,7 +14,7 @@ private const val DATABASE_NAME = "note-database"
 class NoteRepository private constructor(context: Context) {
 
     // Свойство для хранения ссылки на БД:
-    private val database : NoteDatabase = Room.databaseBuilder(
+    private val database: NoteDatabase = Room.databaseBuilder(
         context.applicationContext,
         NoteDatabase::class.java,
         DATABASE_NAME
@@ -27,16 +27,9 @@ class NoteRepository private constructor(context: Context) {
 
     // Функции для каждой функции в DAO:
     fun getNotes(): LiveData<List<Note>> = noteDao.getNotes()
-
     fun getNote(id: UUID): LiveData<Note?> = noteDao.getNote(id)
-
-    fun updateNote(note: Note) {
-        executor.execute { noteDao.updateNote(note) }
-    }
-
-    fun addNote(note: Note) {
-        executor.execute { noteDao.addNote(note) }
-    }
+    fun updateNote(note: Note) = executor.execute { noteDao.updateNote(note) }
+    fun addNote(note: Note) = executor.execute { noteDao.addNote(note) }
 
     companion object {
         private var INSTANCE: NoteRepository? = null
@@ -45,8 +38,6 @@ class NoteRepository private constructor(context: Context) {
             if (INSTANCE == null) INSTANCE = NoteRepository(context)
         }
 
-        fun get(): NoteRepository {
-            return INSTANCE ?: throw IllegalStateException("NoteRepository is not initialized")
-        }
+        fun get(): NoteRepository = INSTANCE ?: throw IllegalStateException("NoteRepository is not initialized")
     }
 }

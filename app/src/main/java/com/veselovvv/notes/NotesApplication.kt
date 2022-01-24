@@ -8,7 +8,6 @@ class NotesApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         NoteRepository.initialize(this)
     }
 }

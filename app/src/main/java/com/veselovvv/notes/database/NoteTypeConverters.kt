@@ -5,24 +5,15 @@ import java.util.*
 
 // Преобразования типов для хранения в базе данных и обратно:
 class NoteTypeConverters {
+    @TypeConverter
+    fun fromDate(date: Date?) = date?.time
 
     @TypeConverter
-    fun fromDate(date: Date?): Long? {
-        return date?.time
-    }
+    fun toDate(millisSinceEpoch: Long?) = millisSinceEpoch?.let { Date(it) }
 
     @TypeConverter
-    fun toDate(millisSinceEpoch: Long?): Date? {
-        return millisSinceEpoch?.let { Date(it) }
-    }
+    fun toUUID(uuid: String?): UUID? = UUID.fromString(uuid)
 
     @TypeConverter
-    fun toUUID(uuid: String?): UUID? {
-        return UUID.fromString(uuid)
-    }
-
-    @TypeConverter
-    fun fromUUID(uuid: UUID?): String? {
-        return uuid?.toString()
-    }
+    fun fromUUID(uuid: UUID?) = uuid?.toString()
 }

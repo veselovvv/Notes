@@ -42,9 +42,7 @@ class NoteListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note_list, container, false)
 
@@ -143,8 +141,6 @@ class NoteListFragment : Fragment() {
 
     // Создает объект NoteListFragment:
     companion object {
-        fun newInstance(): NoteListFragment {
-            return NoteListFragment()
-        }
+        fun newInstance() = NoteListFragment()
     }
 }
