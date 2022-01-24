@@ -67,54 +67,28 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
 
     override fun onStart() {
         super.onStart()
+        addListenersForTextFields()
+        setupDateButton()
+    }
 
-        val titleWatcher = object : TextWatcher {
-
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
+    private fun addListenersForTextFields() {
+        val titleWatcher = object : BaseTextWatcher {
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 note.title = sequence.toString()
             }
-
-            override fun afterTextChanged(sequence: Editable?) {}
         }
 
-        val textWatcher = object : TextWatcher {
-
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
+        val textWatcher = object : BaseTextWatcher {
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 note.text = sequence.toString()
             }
-
-            override fun afterTextChanged(sequence: Editable?) {}
         }
 
         titleField.addTextChangedListener(titleWatcher)
         textField.addTextChangedListener(textWatcher)
+    }
 
+    private fun setupDateButton() {
         dateButton.setOnClickListener {
             DatePickerFragment.newInstance(note.date).apply {
                 setTargetFragment(this@NoteFragment, REQUEST_DATE)
@@ -146,5 +120,10 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
                 putSerializable(ARG_NOTE_ID, noteId)
             }
         }
+    }
+
+    interface BaseTextWatcher : TextWatcher {
+        override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun afterTextChanged(sequence: Editable?) {}
     }
 }
