@@ -1,15 +1,15 @@
 package com.veselovvv.notes.ui.note
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
+import java.text.SimpleDateFormat
 import java.util.*
 
 private const val ARG_NOTE_ID = "note_id"
@@ -25,12 +25,13 @@ class NoteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         note = Note()
         loadNoteById()
     }
 
     private fun loadNoteById() {
-        val noteId: UUID = arguments?.getSerializable(ARG_NOTE_ID) as UUID
+        val noteId = arguments?.getSerializable(ARG_NOTE_ID) as UUID
         noteDetailViewModel.loadNote(noteId)
     }
 
@@ -45,14 +46,34 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadNoteById()
 
+        loadNoteById()
         noteDetailViewModel.noteLiveData.observe(viewLifecycleOwner, Observer { note ->
             note?.let {
                 this.note = note
                 updateUI()
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_note, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.save_note -> {
+            if (note.text.isNotEmpty()) {
+                note.date = SimpleDateFormat.getDateInstance().format(Date())
+                noteDetailViewModel.saveNote(note)
+                Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
+                requireActivity().onBackPressed()
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.text_is_empty), Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
@@ -75,11 +96,6 @@ class NoteFragment : Fragment() {
 
         titleField.addTextChangedListener(titleWatcher)
         textField.addTextChangedListener(textWatcher)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        noteDetailViewModel.saveNote(note)
     }
 
     private fun updateUI() {

@@ -7,4 +7,7 @@
     <string name="note_text_hint">Введіть текст нотатки.</string>
     <string name="note_date">Дата нотатки</string>
     <string name="new_note">Нова нотатка</string>
+    <string name="save">Зберегти</string>
+    <string name="saved">Збережено</string>
+    <string name="text_is_empty">Текст порожній</string>
 </resources>

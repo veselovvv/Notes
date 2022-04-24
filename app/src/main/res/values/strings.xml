@@ -6,4 +6,7 @@
     <string name="note_text_hint">Enter a text for the note.</string>
     <string name="note_date">Note Date</string>
     <string name="new_note">New Note</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="text_is_empty">Text is empty</string>
 </resources>

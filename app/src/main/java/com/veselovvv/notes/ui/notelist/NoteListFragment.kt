@@ -67,16 +67,14 @@ class NoteListFragment : Fragment() {
         inflater.inflate(R.menu.fragment_note_list, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.new_note -> {
-                val note = Note()
-                noteListViewModel.addNote(note)
-                callbacks?.onNoteSelected(note.id)
-                true
-            }
-            else -> return super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.new_note -> {
+            val note = Note()
+            noteListViewModel.addNote(note)
+            callbacks?.onNoteSelected(note.id)
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun updateUI(notes: List<Note>) {
