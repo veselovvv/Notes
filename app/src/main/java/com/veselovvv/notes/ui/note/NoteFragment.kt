@@ -7,22 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
-import com.veselovvv.notes.ui.DatePickerFragment
 import java.util.*
 
 private const val ARG_NOTE_ID = "note_id"
-private const val DIALOG_DATE = "DialogDate"
-private const val REQUEST_DATE = 0
 
-class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
+class NoteFragment : Fragment() {
     private lateinit var note: Note
     private lateinit var titleField: TextInputEditText
     private lateinit var textField: TextInputEditText
-    private lateinit var dateButton: MaterialButton
 
     private val noteDetailViewModel: NoteDetailViewModel by lazy {
         ViewModelProviders.of(this).get(NoteDetailViewModel::class.java)
@@ -45,7 +40,6 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
         val view = inflater.inflate(R.layout.fragment_note, container, false)
         titleField = view.findViewById(R.id.note_title) as TextInputEditText
         textField = view.findViewById(R.id.note_text) as TextInputEditText
-        dateButton = view.findViewById(R.id.note_date) as MaterialButton
         return view
     }
 
@@ -64,7 +58,6 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
     override fun onStart() {
         super.onStart()
         addListenersForTextFields()
-        setupDateButton()
     }
 
     private fun addListenersForTextFields() {
@@ -84,29 +77,14 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
         textField.addTextChangedListener(textWatcher)
     }
 
-    private fun setupDateButton() {
-        dateButton.setOnClickListener {
-            DatePickerFragment.newInstance(note.date).apply {
-                setTargetFragment(this@NoteFragment, REQUEST_DATE)
-                show(this@NoteFragment.requireFragmentManager(), DIALOG_DATE)
-            }
-        }
-    }
-
     override fun onStop() {
         super.onStop()
         noteDetailViewModel.saveNote(note)
     }
 
-    override fun onDateSelected(date: Date) {
-        note.date = date
-        updateUI()
-    }
-
     private fun updateUI() {
         titleField.setText(note.title)
         textField.setText(note.text)
-        dateButton.text = note.date.toString()
     }
 
     companion object {

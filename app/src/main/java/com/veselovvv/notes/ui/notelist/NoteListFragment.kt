@@ -99,7 +99,7 @@ class NoteListFragment : Fragment() {
             this.note = note
             titleTextView.text = this.note.title
             textTextView.text = this.note.text
-            dateTextView.text = this.note.date.toString()
+            dateTextView.text = this.note.date
         }
 
         override fun onClick(view: View?) {
