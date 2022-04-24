@@ -1,4 +1,4 @@
-package com.veselovvv.notes.fragments
+package com.veselovvv.notes.ui
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -10,7 +10,6 @@ import java.util.*
 private const val ARG_DATE = "date"
 
 class DatePickerFragment : DialogFragment() {
-
     interface Callbacks {
         fun onDateSelected(date: Date)
     }
@@ -19,7 +18,6 @@ class DatePickerFragment : DialogFragment() {
         val dateListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                 val resultDate: Date = GregorianCalendar(year, month, day).time
-
                 targetFragment?.let { fragment ->
                     (fragment as Callbacks).onDateSelected(resultDate)
                 }
@@ -31,7 +29,6 @@ class DatePickerFragment : DialogFragment() {
         val initialYear = calendar.get(Calendar.YEAR)
         val initialMonth = calendar.get(Calendar.MONTH)
         val initialDay = calendar.get(Calendar.DAY_OF_MONTH)
-
         return DatePickerDialog(requireContext(), dateListener, initialYear, initialMonth, initialDay)
     }
 

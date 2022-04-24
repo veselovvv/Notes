@@ -1,4 +1,4 @@
-package com.veselovvv.notes.fragments
+package com.veselovvv.notes.ui.notelist
 
 import android.content.Context
 import android.os.Bundle
@@ -9,14 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
-import com.veselovvv.notes.models.Note
-import com.veselovvv.notes.viewmodels.NoteListViewModel
+import com.veselovvv.notes.data.Note
 import com.veselovvv.notes.R
 import java.util.*
 
 class NoteListFragment : Fragment() {
-
-    // Интерфейс обратного вызова:
     interface Callbacks {
         fun onNoteSelected(noteId: UUID)
     }
@@ -37,7 +34,6 @@ class NoteListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Сообщение FragmentManager, что экземпляр NoteListFragment должен получать обратные вызовы меню:
         setHasOptionsMenu(true)
     }
 
@@ -45,17 +41,14 @@ class NoteListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note_list, container, false)
-
         noteRecyclerView = view.findViewById(R.id.note_recycler_view) as RecyclerView
         noteRecyclerView.layoutManager = LinearLayoutManager(context)
         noteRecyclerView.adapter = adapter
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Регистрация наблюдателя за экземпляром LiveData и связывание наблюдателя с фрагментом:
         noteListViewModel.noteListLiveData.observe(
             viewLifecycleOwner,
@@ -69,7 +62,6 @@ class NoteListFragment : Fragment() {
         callbacks = null
     }
 
-    // Заполняет меню, определенное в файле fragment_note_list.xml:
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.fragment_note_list, menu)
@@ -87,18 +79,14 @@ class NoteListFragment : Fragment() {
         }
     }
 
-    // Настраивает интерфейс NoteListFragment:
     private fun updateUI(notes: List<Note>) {
         adapter = NoteAdapter(notes)
         noteRecyclerView.adapter = adapter
     }
 
     // Хранит ссылки на виджеты внутри представления элемента:
-    private inner class NoteHolder(view: View)
-        : RecyclerView.ViewHolder(view), View.OnClickListener {
-
+    private inner class NoteHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private lateinit var note: Note
-
         private val titleTextView: MaterialTextView = itemView.findViewById(R.id.note_title)
         private val textTextView: MaterialTextView = itemView.findViewById(R.id.note_text)
         private val dateTextView: MaterialTextView = itemView.findViewById(R.id.note_date)
@@ -119,27 +107,20 @@ class NoteListFragment : Fragment() {
         }
     }
 
-    // Адаптер:
-    private inner class NoteAdapter(var notes: List<Note>)
-        : RecyclerView.Adapter<NoteHolder>() {
-
-        // Заполняет представление элемента, создает новый контейнер, передает его обратно:
+    private inner class NoteAdapter(var notes: List<Note>) : RecyclerView.Adapter<NoteHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
             val view = layoutInflater.inflate(R.layout.list_item_note, parent, false)
             return NoteHolder(view)
         }
 
-        // Берет заметку с определенным индексом и задает соответствующий текст:
         override fun onBindViewHolder(holder: NoteHolder, position: Int) {
             val note = notes[position]
             holder.bind(note)
         }
 
-        // Количество элементов в списке заметок:
         override fun getItemCount() = notes.size
     }
 
-    // Создает объект NoteListFragment:
     companion object {
         fun newInstance() = NoteListFragment()
     }

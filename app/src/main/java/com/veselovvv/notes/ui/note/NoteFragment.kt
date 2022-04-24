@@ -1,19 +1,17 @@
-package com.veselovvv.notes.fragments
+package com.veselovvv.notes.ui.note
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.veselovvv.notes.models.Note
-import com.veselovvv.notes.viewmodels.NoteDetailViewModel
 import com.veselovvv.notes.R
+import com.veselovvv.notes.data.Note
+import com.veselovvv.notes.ui.DatePickerFragment
 import java.util.*
 
 private const val ARG_NOTE_ID = "note_id"
@@ -45,11 +43,9 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note, container, false)
-
         titleField = view.findViewById(R.id.note_title) as TextInputEditText
         textField = view.findViewById(R.id.note_text) as TextInputEditText
         dateButton = view.findViewById(R.id.note_date) as MaterialButton
-
         return view
     }
 
@@ -120,10 +116,5 @@ class NoteFragment : Fragment(), DatePickerFragment.Callbacks {
                 putSerializable(ARG_NOTE_ID, noteId)
             }
         }
-    }
-
-    interface BaseTextWatcher : TextWatcher {
-        override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun afterTextChanged(sequence: Editable?) {}
     }
 }

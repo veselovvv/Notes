@@ -1,11 +1,11 @@
-package com.veselovvv.notes.viewmodels
+package com.veselovvv.notes.ui.note
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.veselovvv.notes.models.Note
-import com.veselovvv.notes.repositories.NoteRepository
+import com.veselovvv.notes.data.Note
+import com.veselovvv.notes.data.NoteRepository
 import java.util.*
 
 // Управляет запросом к БД:

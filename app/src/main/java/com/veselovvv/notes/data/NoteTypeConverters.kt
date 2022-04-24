@@ -1,4 +1,4 @@
-package com.veselovvv.notes.database
+package com.veselovvv.notes.data
 
 import androidx.room.TypeConverter
 import java.util.*

@@ -1,31 +1,25 @@
-package com.veselovvv.notes.repositories
+package com.veselovvv.notes.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import com.veselovvv.notes.database.NoteDatabase
-import com.veselovvv.notes.models.Note
+import com.veselovvv.notes.data.NoteDatabase
+import com.veselovvv.notes.data.Note
 import java.util.*
 import java.util.concurrent.Executors
 
 private const val DATABASE_NAME = "note-database"
 
-// Шаблон репозитория для доступа к БД:
 class NoteRepository private constructor(context: Context) {
-
-    // Свойство для хранения ссылки на БД:
     private val database: NoteDatabase = Room.databaseBuilder(
         context.applicationContext,
         NoteDatabase::class.java,
         DATABASE_NAME
     ).build()
 
-    // Свойство для хранения ссылки на объект DAO:
     private val noteDao = database.noteDao()
-    // Свойство исполнителя для хранения ссылки:
     private val executor = Executors.newSingleThreadExecutor()
 
-    // Функции для каждой функции в DAO:
     fun getNotes(): LiveData<List<Note>> = noteDao.getNotes()
     fun getNote(id: UUID): LiveData<Note?> = noteDao.getNote(id)
     fun updateNote(note: Note) = executor.execute { noteDao.updateNote(note) }

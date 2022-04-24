@@ -1,10 +1,9 @@
-package com.veselovvv.notes.models
+package com.veselovvv.notes.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-// Сущность (использование Room):
 @Entity
 data class Note(
     @PrimaryKey val id: UUID = UUID.randomUUID(),
