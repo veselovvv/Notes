@@ -2,10 +2,10 @@ package com.veselovvv.notes.ui.note
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
@@ -66,10 +66,10 @@ class NoteFragment : Fragment() {
             if (note.text.isNotEmpty()) {
                 note.date = SimpleDateFormat.getDateInstance().format(Date())
                 noteDetailViewModel.saveNote(note)
-                Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), R.string.saved, Snackbar.LENGTH_SHORT).show()
                 requireActivity().onBackPressed()
             } else {
-                Toast.makeText(requireContext(), getString(R.string.text_is_empty), Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), R.string.text_is_empty, Snackbar.LENGTH_SHORT).show()
             }
             true
         }
