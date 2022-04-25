@@ -1,6 +1,5 @@
 package com.veselovvv.notes.ui
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -14,10 +13,9 @@ class NotesViewModel : ViewModel() {
     private val noteIdLiveData = MutableLiveData<UUID>()
 
     // Сохранение объекта Note, полученного из БД:
-    var noteLiveData: LiveData<Note?> =
-        Transformations.switchMap(noteIdLiveData) { noteId ->
-            noteRepository.getNote(noteId)
-        }
+    var noteLiveData = Transformations.switchMap(noteIdLiveData) { noteId ->
+        noteRepository.getNote(noteId)
+    }
 
     fun loadNote(noteId: UUID) {
         noteIdLiveData.value = noteId

@@ -3,8 +3,6 @@ package com.veselovvv.notes.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.veselovvv.notes.R
-import com.veselovvv.notes.ui.note.NoteFragment
-import com.veselovvv.notes.ui.notelist.NoteListFragment
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NoteListFragment.Callbacks {

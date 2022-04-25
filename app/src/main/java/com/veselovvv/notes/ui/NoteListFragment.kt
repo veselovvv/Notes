@@ -1,4 +1,4 @@
-package com.veselovvv.notes.ui.notelist
+package com.veselovvv.notes.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -14,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
-import com.veselovvv.notes.ui.NotesViewModel
 import java.util.*
 
 class NoteListFragment : Fragment() {
@@ -25,13 +24,11 @@ class NoteListFragment : Fragment() {
     private var callbacks: Callbacks? = null
     private lateinit var noteRecyclerView: RecyclerView
     private var adapter: NoteAdapter? = NoteAdapter(emptyList())
-
     private val notesViewModel: NotesViewModel by lazy {
         ViewModelProviders.of(this).get(NotesViewModel::class.java)
     }
 
-    // Прикрепление фрагмента к активности:
-    override fun onAttach(context: Context) {
+    override fun onAttach(context: Context) { // прикрепление фрагмента к активности
         super.onAttach(context)
         callbacks = context as Callbacks?
     }
@@ -59,12 +56,6 @@ class NoteListFragment : Fragment() {
         )
     }
 
-    // Открепление фрагмента от активности:
-    override fun onDetach() {
-        super.onDetach()
-        callbacks = null
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.fragment_note_list, menu)
@@ -72,11 +63,15 @@ class NoteListFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.new_note -> {
-            val note = Note()
-            callbacks?.onNoteSelected(note.id)
+            callbacks?.onNoteSelected(Note().id)
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onDetach() { // открепление фрагмента от активности
+        super.onDetach()
+        callbacks = null
     }
 
     private fun updateUI(notes: List<Note>) {
@@ -85,13 +80,8 @@ class NoteListFragment : Fragment() {
         noteRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
-    // Хранит ссылки на виджеты внутри представления элемента:
     private inner class NoteHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
         private lateinit var note: Note
-        private val titleTextView: MaterialTextView = itemView.findViewById(R.id.note_title)
-        private val textTextView: MaterialTextView = itemView.findViewById(R.id.note_text)
-        private val dateTextView: MaterialTextView = itemView.findViewById(R.id.note_date)
-        private val deleteImageView: ShapeableImageView = itemView.findViewById(R.id.delete_note)
 
         init {
             itemView.setOnClickListener(this)
@@ -99,10 +89,10 @@ class NoteListFragment : Fragment() {
 
         fun bind(note: Note) {
             this.note = note
-            titleTextView.text = this.note.title
-            textTextView.text = this.note.text
-            dateTextView.text = this.note.date
-            deleteImageView.setOnClickListener {
+            itemView.findViewById<MaterialTextView>(R.id.note_title).text = this.note.title
+            itemView.findViewById<MaterialTextView>(R.id.note_text).text = this.note.text
+            itemView.findViewById<MaterialTextView>(R.id.note_date).text = this.note.date
+            itemView.findViewById<ShapeableImageView>(R.id.delete_note).setOnClickListener {
                 notesViewModel.deleteNote(note)
                 Snackbar.make(requireView(), getString(R.string.deleted), Snackbar.LENGTH_SHORT).show()
             }

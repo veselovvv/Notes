@@ -1,4 +1,4 @@
-package com.veselovvv.notes.ui.note
+package com.veselovvv.notes.ui
 
 import android.os.Bundle
 import android.view.*
@@ -9,7 +9,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
-import com.veselovvv.notes.ui.NotesViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,7 +18,6 @@ class NoteFragment : Fragment() {
     private lateinit var note: Note
     private lateinit var titleField: TextInputEditText
     private lateinit var textField: TextInputEditText
-
     private val notesViewModel: NotesViewModel by lazy {
         ViewModelProviders.of(this).get(NotesViewModel::class.java)
     }
@@ -29,11 +27,6 @@ class NoteFragment : Fragment() {
         setHasOptionsMenu(true)
         note = Note()
         loadNoteById()
-    }
-
-    private fun loadNoteById() {
-        val noteId = arguments?.getSerializable(ARG_NOTE_ID) as UUID
-        notesViewModel.loadNote(noteId)
     }
 
     override fun onCreateView(
@@ -47,7 +40,6 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         loadNoteById()
         notesViewModel.noteLiveData.observe(viewLifecycleOwner, Observer { note ->
             note?.let {
@@ -58,31 +50,8 @@ class NoteFragment : Fragment() {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.fragment_note, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.save_note -> {
-            if (note.text.isNotEmpty()) {
-                if (note.title.isEmpty()) note.title = getString(R.string.no_title)
-                note.date = SimpleDateFormat.getDateInstance().format(Date())
-                if (notesViewModel.noteLiveData.value?.id != note.id) notesViewModel.addNote(note) //TODO
-                notesViewModel.saveNote(note)
-                Snackbar.make(requireView(), R.string.saved, Snackbar.LENGTH_SHORT).show()
-                requireActivity().onBackPressed()
-            } else {
-                Snackbar.make(requireView(), R.string.text_is_empty, Snackbar.LENGTH_SHORT).show()
-            }
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
-
     override fun onStart() {
         super.onStart()
-
         titleField.addTextChangedListener(object : BaseTextWatcher {
             override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 note.title = sequence.toString()
@@ -93,6 +62,39 @@ class NoteFragment : Fragment() {
                 note.text = sequence.toString()
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_note, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.save_note -> saveNoteIfIsNotEmpty()
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun loadNoteById() {
+        val noteId = arguments?.getSerializable(ARG_NOTE_ID) as UUID
+        notesViewModel.loadNote(noteId)
+    }
+
+    private fun saveNoteIfIsNotEmpty(): Boolean {
+        if (note.text.isNotEmpty()) {
+            saveNote()
+            Snackbar.make(requireView(), R.string.saved, Snackbar.LENGTH_SHORT).show()
+            requireActivity().onBackPressed()
+        } else {
+            Snackbar.make(requireView(), R.string.text_is_empty, Snackbar.LENGTH_SHORT).show()
+        }
+        return true
+    }
+
+    private fun saveNote() {
+        if (note.title.isEmpty()) note.title = getString(R.string.no_title)
+        note.date = SimpleDateFormat.getDateInstance().format(Date())
+        if (notesViewModel.noteLiveData.value?.id != note.id) notesViewModel.addNote(note)
+        notesViewModel.saveNote(note)
     }
 
     companion object {

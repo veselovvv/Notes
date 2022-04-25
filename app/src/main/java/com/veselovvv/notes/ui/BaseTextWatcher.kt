@@ -1,4 +1,4 @@
-package com.veselovvv.notes.ui.note
+package com.veselovvv.notes.ui
 
 import android.text.Editable
 import android.text.TextWatcher
