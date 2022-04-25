@@ -10,4 +10,5 @@
     <string name="save">Зберегти</string>
     <string name="saved">Збережено</string>
     <string name="text_is_empty">Текст порожній</string>
+    <string name="no_title">Немає заголовку</string>
 </resources>

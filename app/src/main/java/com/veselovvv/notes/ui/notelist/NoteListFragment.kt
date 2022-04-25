@@ -52,8 +52,7 @@ class NoteListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Регистрация наблюдателя за экземпляром LiveData и связывание наблюдателя с фрагментом:
         noteListViewModel.noteListLiveData.observe(
-            viewLifecycleOwner,
-            Observer { notes -> notes?.let { updateUI(notes) } }
+            viewLifecycleOwner, Observer { notes -> notes?.let { updateUI(notes) } }
         )
     }
 
@@ -108,16 +107,10 @@ class NoteListFragment : Fragment() {
     }
 
     private inner class NoteAdapter(var notes: List<Note>) : RecyclerView.Adapter<NoteHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_note, parent, false)
-            return NoteHolder(view)
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            NoteHolder(layoutInflater.inflate(R.layout.list_item_note, parent, false))
 
-        override fun onBindViewHolder(holder: NoteHolder, position: Int) {
-            val note = notes[position]
-            holder.bind(note)
-        }
-
+        override fun onBindViewHolder(holder: NoteHolder, position: Int) = holder.bind(notes[position])
         override fun getItemCount() = notes.size
     }
 

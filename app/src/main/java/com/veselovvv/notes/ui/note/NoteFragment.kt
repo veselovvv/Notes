@@ -51,7 +51,8 @@ class NoteFragment : Fragment() {
         noteDetailViewModel.noteLiveData.observe(viewLifecycleOwner, Observer { note ->
             note?.let {
                 this.note = note
-                updateUI()
+                titleField.setText(note.title)
+                textField.setText(note.text)
             }
         })
     }
@@ -64,6 +65,7 @@ class NoteFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.save_note -> {
             if (note.text.isNotEmpty()) {
+                if (note.title.isEmpty()) note.title = getString(R.string.no_title)
                 note.date = SimpleDateFormat.getDateInstance().format(Date())
                 noteDetailViewModel.saveNote(note)
                 Snackbar.make(requireView(), R.string.saved, Snackbar.LENGTH_SHORT).show()
@@ -78,29 +80,17 @@ class NoteFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        addListenersForTextFields()
-    }
 
-    private fun addListenersForTextFields() {
-        val titleWatcher = object : BaseTextWatcher {
+        titleField.addTextChangedListener(object : BaseTextWatcher {
             override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 note.title = sequence.toString()
             }
-        }
-
-        val textWatcher = object : BaseTextWatcher {
+        })
+        textField.addTextChangedListener(object : BaseTextWatcher {
             override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
                 note.text = sequence.toString()
             }
-        }
-
-        titleField.addTextChangedListener(titleWatcher)
-        textField.addTextChangedListener(textWatcher)
-    }
-
-    private fun updateUI() {
-        titleField.setText(note.title)
-        textField.setText(note.text)
+        })
     }
 
     companion object {
