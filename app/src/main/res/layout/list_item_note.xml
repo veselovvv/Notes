@@ -8,7 +8,6 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/note_title"
-        android:layout_marginTop="16dp"
         android:text="@string/note_title"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +17,6 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/note_text"
-        android:layout_marginTop="8dp"
         android:text="@string/note_text"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +26,6 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/note_date"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/note_date"
         app:layout_constraintBottom_toBottomOf="parent"

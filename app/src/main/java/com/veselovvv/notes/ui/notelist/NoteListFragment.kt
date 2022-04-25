@@ -6,6 +6,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
@@ -80,6 +81,7 @@ class NoteListFragment : Fragment() {
     private fun updateUI(notes: List<Note>) {
         adapter = NoteAdapter(notes)
         noteRecyclerView.adapter = adapter
+        noteRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     // Хранит ссылки на виджеты внутри представления элемента:
