@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
+import com.veselovvv.notes.ui.NotesViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,8 +20,8 @@ class NoteFragment : Fragment() {
     private lateinit var titleField: TextInputEditText
     private lateinit var textField: TextInputEditText
 
-    private val noteDetailViewModel: NoteDetailViewModel by lazy {
-        ViewModelProviders.of(this).get(NoteDetailViewModel::class.java)
+    private val notesViewModel: NotesViewModel by lazy {
+        ViewModelProviders.of(this).get(NotesViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class NoteFragment : Fragment() {
 
     private fun loadNoteById() {
         val noteId = arguments?.getSerializable(ARG_NOTE_ID) as UUID
-        noteDetailViewModel.loadNote(noteId)
+        notesViewModel.loadNote(noteId)
     }
 
     override fun onCreateView(
@@ -48,7 +49,7 @@ class NoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadNoteById()
-        noteDetailViewModel.noteLiveData.observe(viewLifecycleOwner, Observer { note ->
+        notesViewModel.noteLiveData.observe(viewLifecycleOwner, Observer { note ->
             note?.let {
                 this.note = note
                 titleField.setText(note.title)
@@ -67,7 +68,8 @@ class NoteFragment : Fragment() {
             if (note.text.isNotEmpty()) {
                 if (note.title.isEmpty()) note.title = getString(R.string.no_title)
                 note.date = SimpleDateFormat.getDateInstance().format(Date())
-                noteDetailViewModel.saveNote(note)
+                if (notesViewModel.noteLiveData.value?.id != note.id) notesViewModel.addNote(note) //TODO
+                notesViewModel.saveNote(note)
                 Snackbar.make(requireView(), R.string.saved, Snackbar.LENGTH_SHORT).show()
                 requireActivity().onBackPressed()
             } else {

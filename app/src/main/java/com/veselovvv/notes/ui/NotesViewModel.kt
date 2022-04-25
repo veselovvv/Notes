@@ -1,4 +1,4 @@
-package com.veselovvv.notes.ui.note
+package com.veselovvv.notes.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,9 +8,9 @@ import com.veselovvv.notes.data.Note
 import com.veselovvv.notes.data.NoteRepository
 import java.util.*
 
-// Управляет запросом к БД:
-class NoteDetailViewModel : ViewModel() {
+class NotesViewModel : ViewModel() {
     private val noteRepository = NoteRepository.get()
+    val noteListLiveData = noteRepository.getNotes()
     private val noteIdLiveData = MutableLiveData<UUID>()
 
     // Сохранение объекта Note, полученного из БД:
@@ -23,5 +23,7 @@ class NoteDetailViewModel : ViewModel() {
         noteIdLiveData.value = noteId
     }
 
+    fun addNote(note: Note) = noteRepository.addNote(note)
     fun saveNote(note: Note) = noteRepository.updateNote(note)
+    fun deleteNote(note: Note) = noteRepository.deleteNote(note)
 }

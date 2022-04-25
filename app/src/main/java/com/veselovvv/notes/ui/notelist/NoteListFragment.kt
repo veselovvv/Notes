@@ -4,14 +4,17 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
-import com.veselovvv.notes.data.Note
 import com.veselovvv.notes.R
+import com.veselovvv.notes.data.Note
+import com.veselovvv.notes.ui.NotesViewModel
 import java.util.*
 
 class NoteListFragment : Fragment() {
@@ -23,8 +26,8 @@ class NoteListFragment : Fragment() {
     private lateinit var noteRecyclerView: RecyclerView
     private var adapter: NoteAdapter? = NoteAdapter(emptyList())
 
-    private val noteListViewModel: NoteListViewModel by lazy {
-        ViewModelProviders.of(this).get(NoteListViewModel::class.java)
+    private val notesViewModel: NotesViewModel by lazy {
+        ViewModelProviders.of(this).get(NotesViewModel::class.java)
     }
 
     // Прикрепление фрагмента к активности:
@@ -51,7 +54,7 @@ class NoteListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Регистрация наблюдателя за экземпляром LiveData и связывание наблюдателя с фрагментом:
-        noteListViewModel.noteListLiveData.observe(
+        notesViewModel.noteListLiveData.observe(
             viewLifecycleOwner, Observer { notes -> notes?.let { updateUI(notes) } }
         )
     }
@@ -70,7 +73,6 @@ class NoteListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.new_note -> {
             val note = Note()
-            noteListViewModel.addNote(note)
             callbacks?.onNoteSelected(note.id)
             true
         }
@@ -89,6 +91,7 @@ class NoteListFragment : Fragment() {
         private val titleTextView: MaterialTextView = itemView.findViewById(R.id.note_title)
         private val textTextView: MaterialTextView = itemView.findViewById(R.id.note_text)
         private val dateTextView: MaterialTextView = itemView.findViewById(R.id.note_date)
+        private val deleteImageView: ShapeableImageView = itemView.findViewById(R.id.delete_note)
 
         init {
             itemView.setOnClickListener(this)
@@ -99,6 +102,10 @@ class NoteListFragment : Fragment() {
             titleTextView.text = this.note.title
             textTextView.text = this.note.text
             dateTextView.text = this.note.date
+            deleteImageView.setOnClickListener {
+                notesViewModel.deleteNote(note)
+                Snackbar.make(requireView(), getString(R.string.deleted), Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         override fun onClick(view: View?) {

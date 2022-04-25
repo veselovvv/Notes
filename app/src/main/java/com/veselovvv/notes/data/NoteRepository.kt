@@ -24,6 +24,7 @@ class NoteRepository private constructor(context: Context) {
     fun getNote(id: UUID): LiveData<Note?> = noteDao.getNote(id)
     fun updateNote(note: Note) = executor.execute { noteDao.updateNote(note) }
     fun addNote(note: Note) = executor.execute { noteDao.addNote(note) }
+    fun deleteNote(note: Note) = executor.execute { noteDao.deleteNote(note) }
 
     companion object {
         private var INSTANCE: NoteRepository? = null

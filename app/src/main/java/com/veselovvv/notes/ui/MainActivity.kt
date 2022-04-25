@@ -1,7 +1,7 @@
 package com.veselovvv.notes.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.veselovvv.notes.R
 import com.veselovvv.notes.ui.note.NoteFragment
 import com.veselovvv.notes.ui.notelist.NoteListFragment

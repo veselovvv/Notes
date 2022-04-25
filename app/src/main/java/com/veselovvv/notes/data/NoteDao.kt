@@ -1,11 +1,7 @@
 package com.veselovvv.notes.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
-import com.veselovvv.notes.data.Note
+import androidx.room.*
 import java.util.*
 
 // Объект доступа к данным:
@@ -22,4 +18,7 @@ interface NoteDao {
 
     @Insert
     fun addNote(note: Note)
+
+    @Delete
+    fun deleteNote(note: Note)
 }
