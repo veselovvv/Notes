@@ -11,4 +11,6 @@
     <string name="text_is_empty">Text is empty</string>
     <string name="no_title">No title</string>
     <string name="deleted">Deleted</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
 </resources>

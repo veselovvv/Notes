@@ -2,7 +2,9 @@ package com.veselovvv.notes.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -10,7 +12,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
@@ -33,16 +34,11 @@ class NoteListFragment : Fragment() {
         callbacks = context as Callbacks?
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note_list, container, false)
-        noteRecyclerView = view.findViewById(R.id.note_recycler_view) as RecyclerView
+        noteRecyclerView = view.findViewById(R.id.note_recycler_view)
         noteRecyclerView.layoutManager = LinearLayoutManager(context)
         noteRecyclerView.adapter = adapter
         return view
@@ -54,19 +50,6 @@ class NoteListFragment : Fragment() {
         notesViewModel.noteListLiveData.observe(
             viewLifecycleOwner, Observer { notes -> notes?.let { updateUI(notes) } }
         )
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.fragment_note_list, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.new_note -> {
-            callbacks?.onNoteSelected(Note().id)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onDetach() { // открепление фрагмента от активности
@@ -94,7 +77,7 @@ class NoteListFragment : Fragment() {
             itemView.findViewById<MaterialTextView>(R.id.note_date).text = this.note.date
             itemView.findViewById<ShapeableImageView>(R.id.delete_note).setOnClickListener {
                 notesViewModel.deleteNote(note)
-                Snackbar.make(requireView(), getString(R.string.deleted), Snackbar.LENGTH_SHORT).show()
+                showSnackBar(requireView(), getString(R.string.deleted), requireActivity().findViewById(R.id.add_fab))
             }
         }
 

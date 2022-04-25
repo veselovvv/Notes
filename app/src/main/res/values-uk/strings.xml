@@ -12,4 +12,6 @@
     <string name="text_is_empty">Текст порожній</string>
     <string name="no_title">Немає заголовку</string>
     <string name="deleted">Видалено</string>
+    <string name="favorites">Улюблені</string>
+    <string name="search">Пошук</string>
 </resources>

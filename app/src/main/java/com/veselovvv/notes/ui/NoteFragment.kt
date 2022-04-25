@@ -5,7 +5,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
@@ -33,8 +32,8 @@ class NoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_note, container, false)
-        titleField = view.findViewById(R.id.note_title) as TextInputEditText
-        textField = view.findViewById(R.id.note_text) as TextInputEditText
+        titleField = view.findViewById(R.id.note_title)
+        textField = view.findViewById(R.id.note_text)
         return view
     }
 
@@ -82,10 +81,10 @@ class NoteFragment : Fragment() {
     private fun saveNoteIfIsNotEmpty(): Boolean {
         if (note.text.isNotEmpty()) {
             saveNote()
-            Snackbar.make(requireView(), R.string.saved, Snackbar.LENGTH_SHORT).show()
+            showSnackBar(requireView(), getString(R.string.saved), requireActivity().findViewById(R.id.add_fab))
             requireActivity().onBackPressed()
         } else {
-            Snackbar.make(requireView(), R.string.text_is_empty, Snackbar.LENGTH_SHORT).show()
+            showSnackBar(requireView(), getString(R.string.text_is_empty), requireActivity().findViewById(R.id.add_fab))
         }
         return true
     }
