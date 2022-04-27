@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,7 +16,7 @@ import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
 import java.util.*
 
-class NoteListFragment : Fragment() {
+class NoteListFragment : BaseFragment() {
     interface Callbacks {
         fun onNoteSelected(noteId: UUID)
     }
@@ -77,7 +76,13 @@ class NoteListFragment : Fragment() {
             itemView.findViewById<MaterialTextView>(R.id.note_date).text = this.note.date
             itemView.findViewById<ShapeableImageView>(R.id.delete_note).setOnClickListener {
                 notesViewModel.deleteNote(note)
-                showSnackBar(requireView(), getString(R.string.deleted), requireActivity().findViewById(R.id.add_fab))
+                showSnackBar(getString(R.string.deleted))
+            }
+            itemView.findViewById<ShapeableImageView>(R.id.make_favorite_note).setOnClickListener {
+                note.isFavorite = !note.isFavorite
+                notesViewModel.saveNote(note)
+                if (note.isFavorite) showSnackBar(getString(R.string.added_to_favorites))
+                else showSnackBar(getString(R.string.removed_from_favorites))
             }
         }
 

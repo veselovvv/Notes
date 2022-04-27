@@ -10,5 +10,6 @@ data class Note(
     @PrimaryKey val id: UUID = UUID.randomUUID(),
     var title: String = "",
     var text: String = "",
-    var date: String = SimpleDateFormat.getDateInstance().format(Date())
+    var date: String = SimpleDateFormat.getDateInstance().format(Date()),
+    var isFavorite: Boolean = false
 )

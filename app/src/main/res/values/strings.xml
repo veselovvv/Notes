@@ -13,4 +13,6 @@
     <string name="deleted">Deleted</string>
     <string name="favorites">Favorites</string>
     <string name="search">Search</string>
+    <string name="added_to_favorites">Added to favorites</string>
+    <string name="removed_from_favorites">Removed from favorites</string>
 </resources>

@@ -2,7 +2,6 @@ package com.veselovvv.notes.ui
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
@@ -13,7 +12,7 @@ import java.util.*
 
 private const val ARG_NOTE_ID = "note_id"
 
-class NoteFragment : Fragment() {
+class NoteFragment : BaseFragment() {
     private lateinit var note: Note
     private lateinit var titleField: TextInputEditText
     private lateinit var textField: TextInputEditText
@@ -81,10 +80,10 @@ class NoteFragment : Fragment() {
     private fun saveNoteIfIsNotEmpty(): Boolean {
         if (note.text.isNotEmpty()) {
             saveNote()
-            showSnackBar(requireView(), getString(R.string.saved), requireActivity().findViewById(R.id.add_fab))
+            showSnackBar(getString(R.string.saved))
             requireActivity().onBackPressed()
         } else {
-            showSnackBar(requireView(), getString(R.string.text_is_empty), requireActivity().findViewById(R.id.add_fab))
+            showSnackBar(getString(R.string.text_is_empty))
         }
         return true
     }
