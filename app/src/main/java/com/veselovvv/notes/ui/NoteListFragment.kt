@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +15,7 @@ import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
 import java.util.*
 
-class NoteListFragment : BaseFragment() {
+open class NoteListFragment : BaseFragment() {
     interface Callbacks {
         fun onNoteSelected(noteId: UUID)
     }
@@ -47,7 +46,7 @@ class NoteListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         // Регистрация наблюдателя за экземпляром LiveData и связывание наблюдателя с фрагментом:
         notesViewModel.noteListLiveData.observe(
-            viewLifecycleOwner, Observer { notes -> notes?.let { updateUI(notes) } }
+            viewLifecycleOwner, { notes -> notes?.let { updateUI(notes) } }
         )
     }
 
@@ -56,7 +55,7 @@ class NoteListFragment : BaseFragment() {
         callbacks = null
     }
 
-    private fun updateUI(notes: List<Note>) {
+    fun updateUI(notes: List<Note>) {
         adapter = NoteAdapter(notes)
         noteRecyclerView.adapter = adapter
         noteRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))

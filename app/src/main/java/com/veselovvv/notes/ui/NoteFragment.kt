@@ -2,7 +2,6 @@ package com.veselovvv.notes.ui
 
 import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
@@ -39,7 +38,7 @@ class NoteFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadNoteById()
-        notesViewModel.noteLiveData.observe(viewLifecycleOwner, Observer { note ->
+        notesViewModel.noteLiveData.observe(viewLifecycleOwner, { note ->
             note?.let {
                 this.note = note
                 titleField.setText(note.title)

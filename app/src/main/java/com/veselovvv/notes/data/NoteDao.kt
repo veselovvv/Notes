@@ -10,6 +10,9 @@ interface NoteDao {
     @Query("SELECT * FROM note")
     fun getNotes(): LiveData<List<Note>>
 
+    @Query("SELECT * FROM note WHERE isFavorite = 1")
+    fun getFavoriteNotes(): LiveData<List<Note>>
+
     @Query("SELECT * FROM note WHERE id = (:id)")
     fun getNote(id: UUID): LiveData<Note?>
 

@@ -17,6 +17,7 @@ class NoteRepository private constructor(context: Context) {
     private val executor = Executors.newSingleThreadExecutor()
 
     fun getNotes() = noteDao.getNotes()
+    fun getFavoriteNotes() = noteDao.getFavoriteNotes()
     fun getNote(id: UUID) = noteDao.getNote(id)
     fun updateNote(note: Note) = executor.execute { noteDao.updateNote(note) }
     fun addNote(note: Note) = executor.execute { noteDao.addNote(note) }

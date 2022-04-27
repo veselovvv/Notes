@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), NoteListFragment.Callbacks {
                     true
                 }
                 R.id.favorites -> {
-                    navigate(NoteListFragment.newInstance())
+                    navigate(FavoriteNoteListFragment.newInstance())
                     true
                 }
                 else -> false
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(), NoteListFragment.Callbacks {
 
     private fun navigate(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
