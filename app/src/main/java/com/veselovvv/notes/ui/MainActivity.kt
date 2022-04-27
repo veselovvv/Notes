@@ -28,10 +28,6 @@ class MainActivity : AppCompatActivity(), NoteListFragment.Callbacks {
 
         findViewById<BottomAppBar>(R.id.bottom_app_bar).setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.search -> {
-                    navigate(NoteListFragment.newInstance())
-                    true
-                }
                 R.id.favorites -> {
                     navigate(FavoriteNoteListFragment.newInstance())
                     true

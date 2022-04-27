@@ -2,7 +2,6 @@ package com.veselovvv.notes.ui
 
 import android.os.Bundle
 import android.view.*
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
@@ -15,9 +14,6 @@ class NoteFragment : BaseFragment() {
     private lateinit var note: Note
     private lateinit var titleField: TextInputEditText
     private lateinit var textField: TextInputEditText
-    private val notesViewModel: NotesViewModel by lazy {
-        ViewModelProviders.of(this).get(NotesViewModel::class.java)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +22,6 @@ open class NoteListFragment : BaseFragment() {
     private var callbacks: Callbacks? = null
     private lateinit var noteRecyclerView: RecyclerView
     private var adapter: NoteAdapter? = NoteAdapter(emptyList())
-    private val notesViewModel: NotesViewModel by lazy {
-        ViewModelProviders.of(this).get(NotesViewModel::class.java)
-    }
 
     override fun onAttach(context: Context) { // прикрепление фрагмента к активности
         super.onAttach(context)
