@@ -9,8 +9,6 @@ import com.veselovvv.notes.data.Note
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val ARG_NOTE_ID = "note_id"
-
 class NoteFragment : BaseFragment() {
     private lateinit var note: Note
     private lateinit var titleField: TextInputEditText
@@ -38,13 +36,13 @@ class NoteFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadNoteById()
-        notesViewModel.noteLiveData.observe(viewLifecycleOwner, { note ->
+        notesViewModel.noteLiveData.observe(viewLifecycleOwner) { note ->
             note?.let {
                 this.note = note
                 titleField.setText(note.title)
                 textField.setText(note.text)
             }
-        })
+        }
     }
 
     override fun onStart() {
@@ -67,27 +65,25 @@ class NoteFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.save_note -> saveNoteIfIsNotEmpty()
+        R.id.save_note -> {
+            if (note.text.isNotEmpty()) {
+                saveNote()
+                showSnackBar(getString(R.string.saved))
+                requireActivity().onBackPressed()
+            } else
+                showSnackBar(getString(R.string.text_is_empty))
+
+            true
+        }
         else -> super.onOptionsItemSelected(item)
     }
 
-    private fun loadNoteById() {
+    fun loadNoteById() {
         val noteId = arguments?.getSerializable(ARG_NOTE_ID) as UUID
         notesViewModel.loadNote(noteId)
     }
 
-    private fun saveNoteIfIsNotEmpty(): Boolean {
-        if (note.text.isNotEmpty()) {
-            saveNote()
-            showSnackBar(getString(R.string.saved))
-            requireActivity().onBackPressed()
-        } else {
-            showSnackBar(getString(R.string.text_is_empty))
-        }
-        return true
-    }
-
-    private fun saveNote() {
+    fun saveNote() {
         if (note.title.isEmpty()) note.title = getString(R.string.no_title)
         note.date = SimpleDateFormat.getDateInstance().format(Date())
         if (notesViewModel.noteLiveData.value?.id != note.id) notesViewModel.addNote(note)
@@ -95,6 +91,8 @@ class NoteFragment : BaseFragment() {
     }
 
     companion object {
+        private const val ARG_NOTE_ID = "note_id"
+
         // Создает пакет аргументов и экземпляр фрагмента, присоединяет аргументы к фрагменту:
         fun newInstance(noteId: UUID) = NoteFragment().apply {
             arguments = Bundle().apply {

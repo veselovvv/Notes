@@ -5,8 +5,6 @@ import androidx.room.Room
 import java.util.*
 import java.util.concurrent.Executors
 
-private const val DATABASE_NAME = "note-database"
-
 class NoteRepository private constructor(context: Context) {
     private val database = Room.databaseBuilder(
         context.applicationContext,
@@ -24,13 +22,15 @@ class NoteRepository private constructor(context: Context) {
     fun deleteNote(note: Note) = executor.execute { noteDao.deleteNote(note) }
 
     companion object {
-        private var INSTANCE: NoteRepository? = null
+        private const val DATABASE_NAME = "note-database"
+
+        private var instance: NoteRepository? = null
 
         fun initialize(context: Context) {
-            if (INSTANCE == null) INSTANCE = NoteRepository(context)
+            if (instance == null) instance = NoteRepository(context)
         }
 
         fun get(): NoteRepository =
-            INSTANCE ?: throw IllegalStateException("NoteRepository is not initialized")
+            instance ?: throw IllegalStateException("NoteRepository is not initialized")
     }
 }

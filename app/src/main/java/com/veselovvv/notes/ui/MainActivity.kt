@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), NoteListFragment.Callbacks {
             .commit()
     }
 
-    private fun navigate(fragment: Fragment) {
+    fun navigate(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()

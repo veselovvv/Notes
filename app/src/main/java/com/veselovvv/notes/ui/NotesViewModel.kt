@@ -9,9 +9,9 @@ import java.util.*
 
 class NotesViewModel : ViewModel() {
     private val noteRepository = NoteRepository.get()
+    private val noteIdLiveData = MutableLiveData<UUID>()
     val noteListLiveData = noteRepository.getNotes()
     val favoriteNoteListLiveData = noteRepository.getFavoriteNotes()
-    private val noteIdLiveData = MutableLiveData<UUID>()
 
     // Сохранение объекта Note, полученного из БД:
     var noteLiveData = Transformations.switchMap(noteIdLiveData) { noteId ->

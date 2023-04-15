@@ -16,12 +16,8 @@ import com.veselovvv.notes.data.Note
 import java.util.*
 
 open class NoteListFragment : BaseFragment() {
-    interface Callbacks {
-        fun onNoteSelected(noteId: UUID)
-    }
-
-    private var callbacks: Callbacks? = null
     private lateinit var noteRecyclerView: RecyclerView
+    private var callbacks: Callbacks? = null
     private var adapter: NoteAdapter? = NoteAdapter(emptyList())
     private val notesViewModel: NotesViewModel by lazy {
         ViewModelProviders.of(this).get(NotesViewModel::class.java)
@@ -45,9 +41,9 @@ open class NoteListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Регистрация наблюдателя за экземпляром LiveData и связывание наблюдателя с фрагментом:
-        notesViewModel.noteListLiveData.observe(
-            viewLifecycleOwner, { notes -> notes?.let { updateUI(notes) } }
-        )
+        notesViewModel.noteListLiveData.observe(viewLifecycleOwner) { notes ->
+            notes?.let { updateUI(notes) }
+        }
     }
 
     override fun onDetach() { // открепление фрагмента от активности
@@ -90,7 +86,7 @@ open class NoteListFragment : BaseFragment() {
         }
     }
 
-    private inner class NoteAdapter(var notes: List<Note>) : RecyclerView.Adapter<NoteHolder>() {
+    private inner class NoteAdapter(private var notes: List<Note>) : RecyclerView.Adapter<NoteHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             NoteHolder(layoutInflater.inflate(R.layout.list_item_note, parent, false))
 
@@ -100,5 +96,9 @@ open class NoteListFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = NoteListFragment()
+    }
+
+    interface Callbacks {
+        fun onNoteSelected(noteId: UUID)
     }
 }
