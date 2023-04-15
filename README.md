@@ -1,9 +1,11 @@
 # Notes
-📒 Android App using Kotlin, MVC, ViewModel and LiveData, Room with SQLite, SQL and Material Design Components. In this app you can create your notes, set title, text and edit your notes.
+📒 Android App using Kotlin, MVC, ViewModel and LiveData, Room with SQLite, SQL and Material Design Components. In this app you can create and delete your notes, choose your favorite notes, set title, text and edit your notes.
 
-![1](https://user-images.githubusercontent.com/76612421/125834603-6745a97a-9940-41f8-bf75-e900cd4b38cc.PNG)
-![2](https://user-images.githubusercontent.com/76612421/125834581-0c905e66-b86d-4a27-9644-401964d8fb62.PNG)
-![3](https://user-images.githubusercontent.com/76612421/125834621-97dedb60-10e7-4a04-8b0e-775f89a29b78.PNG)
-![4](https://user-images.githubusercontent.com/76612421/125834625-68fd9926-dcaf-4e68-adf2-099dc52d09c5.PNG)
-![5](https://user-images.githubusercontent.com/76612421/125834629-e681b51b-8b79-409c-b61a-0f5dab169576.PNG)
-![6](https://user-images.githubusercontent.com/76612421/125834631-3bcb50a9-bbab-414c-a3ea-622ec257dab7.PNG)
+![1](https://user-images.githubusercontent.com/76612421/165563134-6399680c-e396-4c31-bb43-a3793f74a788.PNG)
+![2](https://user-images.githubusercontent.com/76612421/165563145-41418057-13ac-426a-8eb2-aef575826708.PNG)
+![3](https://user-images.githubusercontent.com/76612421/165563161-026621c1-c181-468b-886d-6325e56d9dad.PNG)
+![4](https://user-images.githubusercontent.com/76612421/165563164-d6cb0c70-2c2d-4309-b192-30eb8e1078b3.PNG)
+![5](https://user-images.githubusercontent.com/76612421/165563169-a6d34882-f5b7-4f52-a854-c5beb1eaf627.PNG)
+![6](https://user-images.githubusercontent.com/76612421/165563173-b49665d6-6f3d-4ac8-983b-54d2318549de.PNG)
+![7](https://user-images.githubusercontent.com/76612421/165563179-4058ab19-6182-42e4-9395-fa127b5e5e92.PNG)
+![8](https://user-images.githubusercontent.com/76612421/165563200-7b40a7a5-6374-4307-9322-10dac9713845.PNG)

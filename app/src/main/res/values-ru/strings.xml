@@ -13,7 +13,6 @@
     <string name="no_title">Нет заголовка</string>
     <string name="deleted">Удалено</string>
     <string name="favorites">Избранные</string>
-    <string name="search">Поиск</string>
     <string name="added_to_favorites">Добавлено в избранные</string>
     <string name="removed_from_favorites">Удалено из избранных</string>
 </resources>
