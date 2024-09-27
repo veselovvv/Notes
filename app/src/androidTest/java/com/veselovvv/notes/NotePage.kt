@@ -24,6 +24,9 @@ class NotePage : AbstractPage(R.id.note_root_layout) {
     fun checkTitleState(text: String) =
         textFieldUi.checkTextMatches(textFieldId = R.id.note_title, text = text)
 
+    fun checkNoteState(text: String) =
+        textFieldUi.checkTextMatches(textFieldId = R.id.note_text, text = text)
+
     fun clearTitleTextField() =
         textFieldUi.typeIn(textFieldId = R.id.note_title, text = "")
 }
