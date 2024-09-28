@@ -4,16 +4,28 @@ import androidx.test.espresso.Espresso.pressBack
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.veselovvv.notes.ui.MainActivity
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.Before
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 @FixMethodOrder
 class NotesTest {
     @get:Rule
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+    }
 
     /**
      * Check Note List Page is visible
@@ -115,6 +127,7 @@ class NotesTest {
     }
 
     /**
+     * 0. createNoteWithEmptyTitle()
      * Check Note List Page is visible
      * Check note list state with one item with title "No title" and note "Note text"
      * 1. Click "Add" button
@@ -137,6 +150,8 @@ class NotesTest {
      */
     @Test
     fun createNoteWithNotEmptyTitle() {
+        createNoteWithEmptyTitle()
+
         val noteListPage = NoteListPage()
 
         with(noteListPage) {
