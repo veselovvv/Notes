@@ -5,10 +5,14 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.veselovvv.notes.data.Note
 import com.veselovvv.notes.data.NoteRepository
-import java.util.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.UUID
+import javax.inject.Inject
 
-class NotesViewModel : ViewModel() {
-    private val noteRepository = NoteRepository.get()
+@HiltViewModel
+class NotesViewModel @Inject constructor(
+    private val noteRepository: NoteRepository
+) : ViewModel() {
     private val noteIdLiveData = MutableLiveData<UUID>()
     val noteListLiveData = noteRepository.getNotes()
     val favoriteNoteListLiveData = noteRepository.getFavoriteNotes()

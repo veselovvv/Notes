@@ -12,8 +12,10 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import com.veselovvv.notes.R
 import com.veselovvv.notes.data.Note
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 open class NoteListFragment : BaseFragment() {
     private lateinit var noteRecyclerView: RecyclerView
     private var callbacks: Callbacks? = null
