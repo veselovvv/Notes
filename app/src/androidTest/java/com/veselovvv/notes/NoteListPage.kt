@@ -12,4 +12,5 @@ class NoteListPage : AbstractPage(R.id.note_recycler_view) {
         recyclerViewUi.checkNoteListState(notes = notes)
 
     fun clickOnItemInList(index: Int) = recyclerViewUi.clickOnItemInList(index = index)
+    fun clickDeleteButton(index: Int) = recyclerViewUi.clickDeleteButton(index = index)
 }

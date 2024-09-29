@@ -43,4 +43,9 @@ class RecyclerViewUi(recyclerViewId: Int) {
                 .check(matches(withRecyclerViewItemText(R.id.note_date, date)))
         }
     }
+
+    fun clickDeleteButton(index: Int) {
+        interaction.perform(scrollToPosition<RecyclerView.ViewHolder>(index))
+            .perform(clickOnViewChild(R.id.delete_note))
+    }
 }

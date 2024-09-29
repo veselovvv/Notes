@@ -274,4 +274,45 @@ class NotesTest {
             )
         }
     }
+
+    /**
+     * 0. createNoteWithEmptyTitle()
+     * Check Note List Page is visible
+     * Check note list state with one item with title "No title" and note "Note text"
+     * 1. Click "Delete" button on first element in list (index = 0)
+     * Check Note List Page is visible
+     * Check note list initial state
+     * 2. Recreate activity
+     * Check Note List Page is visible
+     * Check note list initial state
+     */
+    @Test
+    fun deleteNote() {
+        createNoteWithEmptyTitle()
+
+        val noteListPage = NoteListPage()
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+
+            clickDeleteButton(index = 0)
+        }
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListInitialState()
+        }
+
+        activityScenarioRule.scenario.recreate()
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListInitialState()
+        }
+    }
 }
