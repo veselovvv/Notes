@@ -201,4 +201,77 @@ class NotesTest {
             )
         }
     }
+
+    /**
+     * 0. createNoteWithEmptyTitle()
+     * Check Note List Page is visible
+     * Check note list state with one item with title "No title" and note "Note text"
+     * 1. Click on first item in list (index = 0)
+     * Check Note Fragment is visible
+     * Check title state with text "No title"
+     * Check note state with text "Note text"
+     * 2. Type in title text field text "First note"
+     * 3. Type in note text field text "Note text edited"
+     * 4. Click "Save note" button
+     * Check Note Fragment is not visible
+     * Check Note List Page is visible
+     * Check note list state with one item with title "First note" and note "Note text edited"
+     * 5. Recreate activity
+     * Check Note Fragment is not visible
+     * Check Note List Page is visible
+     * Check note list state with one item with title "First note" and note "Note text edited"
+     */
+    @Test
+    fun editNote() {
+        createNoteWithEmptyTitle()
+
+        val noteListPage = NoteListPage()
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+
+            clickOnItemInList(index = 0)
+        }
+
+        val notePage = NotePage()
+
+        with(notePage) {
+            checkIsVisible()
+
+            checkTitleState(text = "No title")
+            checkNoteState(text = "Note text")
+
+            typeInTitleTextField(text = "First note")
+            typeInNoteTextField(text = "Note text edited")
+
+            clickSaveNoteButton()
+            checkIsNotVisible()
+        }
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("First note", "Note text edited")
+                )
+            )
+        }
+
+        activityScenarioRule.scenario.recreate()
+        notePage.checkIsNotVisible()
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("First note", "Note text edited")
+                )
+            )
+        }
+    }
 }
