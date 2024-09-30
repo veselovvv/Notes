@@ -48,4 +48,9 @@ class RecyclerViewUi(recyclerViewId: Int) {
         interaction.perform(scrollToPosition<RecyclerView.ViewHolder>(index))
             .perform(clickOnViewChild(R.id.delete_note))
     }
+
+    fun clickOnMakeFavoriteNoteButton(index: Int) {
+        interaction.perform(scrollToPosition<RecyclerView.ViewHolder>(index))
+            .perform(clickOnViewChild(R.id.make_favorite_note))
+    }
 }

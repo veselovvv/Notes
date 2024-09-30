@@ -315,4 +315,140 @@ class NotesTest {
             checkNoteListInitialState()
         }
     }
+
+    /**
+     * 0. createNoteWithEmptyTitle()
+     * Check Note List Page is visible
+     * Check note list state with one item with title "No title" and note "Note text"
+     * 1. Click on favorites tab
+     * Check Favorite Note List Page is visible
+     * 2. Recreate activity
+     * Check Favorite Note List Page is visible
+     * Check favorite note list initial state
+     * 3. Click on home tab
+     * Check Note List Page is visible
+     * Check note list state with one item with title "No title" and note "Note text"
+     * 4. Click on "Make Favorite Note" button on first element in the list
+     * Check Note List Page is visible
+     * Check note list state with one item with title "No title" and note "Note text"
+     * 5. Click on favorites tab
+     * Check Favorite Note List Page is visible
+     * Check favorite note list state with one item with title "No title" and note "Note text"
+     * 6. Recreate activity
+     * Check Favorite Note List Page is visible
+     * Check favorite note list state with one item with title "No title" and note "Note text"
+     * 7. Click on "Make Favorite Note" button on first element in the list
+     * Check Favorite Note List Page is visible
+     * Check favorite note list initial state
+     * 8. Recreate activity
+     * Check Favorite Note List Page is visible
+     * Check favorite note list initial state
+     * 9. Click on home tab
+     * Check Note List Page is visible
+     * Check note list state with one item with title "No title" and note "Note text"
+     * 10. Recreate activity
+     * Check Note List Page is visible
+     * Check note list state with one item with title "No title" and note "Note text"
+     */
+    @Test
+    fun addNoteToFavoritesAndDeleteFromFavorites() {
+        createNoteWithEmptyTitle()
+
+        val noteListPage = NoteListPage()
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+
+            clickOnFavoritesTab()
+        }
+
+        val favoriteNoteListPage = FavoriteNoteListPage()
+        favoriteNoteListPage.checkIsVisible()
+
+        activityScenarioRule.scenario.recreate()
+
+        with(favoriteNoteListPage) {
+            checkIsVisible()
+            checkFavoriteNoteListInitialState()
+
+            clickOnHomeTab()
+        }
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+
+            clickOnMakeFavoriteNoteButton(index = 0)
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+
+            clickOnFavoritesTab()
+        }
+
+        with(favoriteNoteListPage) {
+            checkIsVisible()
+            checkFavoriteNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+        }
+
+        activityScenarioRule.scenario.recreate()
+
+        with(favoriteNoteListPage) {
+            checkIsVisible()
+            checkFavoriteNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+
+            clickOnMakeFavoriteNoteButton(index = 0)
+            checkIsVisible()
+            checkFavoriteNoteListInitialState()
+        }
+
+        activityScenarioRule.scenario.recreate()
+
+        with(favoriteNoteListPage) {
+            checkIsVisible()
+            checkFavoriteNoteListInitialState()
+
+            clickOnHomeTab()
+        }
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+        }
+
+        activityScenarioRule.scenario.recreate()
+
+        with(noteListPage) {
+            checkIsVisible()
+            checkNoteListState(
+                notes = listOf(
+                    Pair("No title", "Note text")
+                )
+            )
+        }
+    }
 }
